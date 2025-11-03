@@ -1,1 +1,16 @@
+¿Qué diferencia hay entre una función y un procedimiento almacenado en T-SQL?
+Una función devuelve un valor y se puede usar dentro de un SELECT.
+Un procedimiento almacenado ejecuta instrucciones 
+(como INSERT, UPDATE, DELETE) pero no devuelve directamente un valor.
 
+¿Para qué sirven las variables en T-SQL?
+Las variables se usan para guardar datos temporales y
+trabajar con valores dinámicos dentro de un bloque SQL.
+
+¿Qué utilidad tiene el condicional IF?
+El IF permite ejecutar diferentes partes del código según
+una condición, controlando el flujo de ejecución.
+
+¿Qué es un cursor en T-SQL?
+Un cursor recorre fila por fila los resultados de una consulta,
+útil cuando necesitas procesar registros uno a uno.
