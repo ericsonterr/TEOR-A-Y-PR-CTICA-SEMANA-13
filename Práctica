@@ -1,5 +1,38 @@
 https://drive.google.com/drive/folders/1z2CIxdiUzasOZwX0ojJPVYZ9pVNErnXj?usp=drive_link
 
-Consulta: Uso de variables, condicional if, función, procedimiento almacenado
-y cursor
+CREATE OR ALTER FUNCTION dbo.CalcularSalarioAnual (@Mensual MONEY)
+RETURNS MONEY
+AS
+BEGIN
+    RETURN @Mensual * 12;
+END;
+GO
 
+DECLARE @SalarioMensual MONEY = 2500;
+DECLARE @Edad INT = 22;
+
+    p.FirstName + ' ' + p.LastName AS Empleado,
+    e.JobTitle AS Puesto,
+    d.Name AS Departamento,
+    
+    @Edad AS EdadEvaluada,
+    CASE
+        WHEN @Edad >= 18 THEN 'Mayor de edad'
+        ELSE 'Menor de edad'
+    END AS EstadoEdad,
+
+    dbo.CalcularSalarioAnual(@SalarioMensual) AS Salario_Proyectado_Anual,
+
+    (SELECT AVG(Rate)
+     FROM HumanResources.EmployeePayHistory eph
+     WHERE eph.BusinessEntityID = e.BusinessEntityID) AS PromedioSalarialEmpleado
+
+FROM HumanResources.Employee e
+INNER JOIN Person.Person p
+    ON e.BusinessEntityID = p.BusinessEntityID
+INNER JOIN HumanResources.EmployeeDepartmentHistory edh
+    ON e.BusinessEntityID = edh.BusinessEntityID
+INNER JOIN HumanResources.Department d
+    ON edh.DepartmentID = d.DepartmentID
+WHERE edh.EndDate IS NULL
+ORDER BY p.FirstName;
